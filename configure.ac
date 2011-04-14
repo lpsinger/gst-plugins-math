@@ -2,14 +2,14 @@ dnl required version of autoconf
 AC_PREREQ([2.53])
 
 dnl TODO: fill in your package name and package version here
-AC_INIT([gst-plugins-cairovis],[0.10.0])
+AC_INIT([gst-plugins-math],[0.0.1])
 
 dnl required versions of gstreamer and plugins-base
 GST_REQUIRED=0.10.16
 GSTPB_REQUIRED=0.10.16
 
-AC_CONFIG_SRCDIR([gst/cairovis/gstplugin.c])
-AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([gst/unary/unary.c])
+dnl AC_CONFIG_HEADERS([config.h])
 
 dnl required version of automake
 AM_INIT_AUTOMAKE([1.10])
@@ -46,6 +46,7 @@ PKG_CHECK_MODULES(GST, [
   gstreamer-0.10 >= $GST_REQUIRED
   gstreamer-base-0.10 >= $GST_REQUIRED
   gstreamer-controller-0.10 >= $GST_REQUIRED
+  gstreamer-audio-0.10 >= $GST_REQUIRED
 ], [
   AC_SUBST(GST_CFLAGS)
   AC_SUBST(GST_LIBS)
@@ -82,6 +83,6 @@ dnl set proper LDFLAGS for plugins
 GST_PLUGIN_LDFLAGS='-module -avoid-version -export-symbols-regex [_]*\(gst_\|Gst\|GST_\).*'
 AC_SUBST(GST_PLUGIN_LDFLAGS)
 
-AC_CONFIG_FILES([Makefile gst/Makefile gst/cairovis/Makefile])
+AC_CONFIG_FILES([Makefile gst/Makefile gst/unary/Makefile])
 AC_OUTPUT
 

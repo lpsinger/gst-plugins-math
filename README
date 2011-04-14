@@ -1,4 +1,9 @@
-Scientific visualization plugins for GStreamer using Cairo graphics
+Mathematical operations plugins for GStreamer
 <https://www.lsc-group.phys.uwm.edu/daswg/projects/gstlal.html>
 
 I'm thinking about contributing this plugin to GStreamer ...
+
+Dependencies
+============
+
+ * GStreamer, gst-plugins-base <http://gstreamer.freedesktop.org/>
