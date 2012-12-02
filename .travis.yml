@@ -4,6 +4,6 @@ compiler:
  - gcc
 before_script:
  - sudo apt-get update -qq
- - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+ - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev -qq
  - ./autogen.sh
 script: ./configure && make
