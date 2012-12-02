@@ -1,0 +1,9 @@
+language: c
+compiler:
+ - clang
+ - gcc
+before_script:
+ - sudo apt-get update -qq
+ - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+ - ./autogen.sh
+script: ./configure && make
