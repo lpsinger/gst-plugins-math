@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Leo Singer
+ * Copyright (C) 2016 Aaron Viets
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,10 +37,10 @@ base_init (gpointer class)
       "Unary operation base class",
       "Filter/Audio",
       "Base class for elements that provide unary arithmetic operations",
-      "Leo Singer <leo.singer@ligo.org>");
+      "Aaron Viets <aaron.viets@ligo.org>, Leo Singer <leo.singer@ligo.org>");
 
   gst_audio_filter_class_add_pad_templates (GST_AUDIO_FILTER_CLASS (class),
-      gst_caps_from_string ("audio/x-raw-float, "
+      gst_caps_from_string ("audio/x-raw, "
           "rate = (int) [1, MAX], "
           "endianness = (int) BYTE_ORDER, "
           "width = (int) {32, 64}, " "channels = (int) [1, MAX]")
