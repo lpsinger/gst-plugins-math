@@ -9,4 +9,4 @@
 
 2016-03-18  Aaron Viets <aaron.viets@ligo.org>
 
-        * Released version 1.0.0.
+        * Ported to GStreamer 1.0.
