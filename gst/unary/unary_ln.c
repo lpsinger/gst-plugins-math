@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Leo Singer
+ * Copyright (C) 2016 Aaron Viets
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,16 +27,19 @@ static GstFlowReturn
 transform_ip (GstBaseTransform * trans, GstBuffer * buf)
 {
   GstAudioFilter *audiofilter = GST_AUDIO_FILTER (trans);
-  GstBufferFormat format = audiofilter->format.format;
+  GstAudioFormat format = audiofilter->info.finfo->format;
 
-  gpointer data = GST_BUFFER_DATA (buf);
-  gpointer data_end = GST_BUFFER_DATA (buf) + GST_BUFFER_SIZE (buf);
+  GstMapInfo info;
+  gst_buffer_map (buf, &info, GST_MAP_READ);
+  gpointer data = info.data;
+  gpointer data_end = data + info.size;
+  gst_buffer_unmap (buf, &info);
 
-  if (format >= GST_FLOAT64_LE) {
+  if (format >= GST_AUDIO_FORMAT_F64) {
     double *ptr, *end = data_end;
     for (ptr = data; ptr < end; ptr++)
       *ptr = log (*ptr);
-  } else if (format >= GST_FLOAT32_LE) {
+  } else if (format >= GST_AUDIO_FORMAT_F32) {
     float *ptr, *end = data_end;
     for (ptr = data; ptr < end; ptr++)
       *ptr = logf (*ptr);
@@ -63,7 +67,7 @@ base_init (gpointer class)
       "Natural logarithm",
       "Filter/Audio",
       "Calculate natural logarithm, y = ln x",
-      "Leo Singer <leo.singer@ligo.org>");
+      "Aaron Viets <aaron.viets@ligo.org>, Leo Singer <leo.singer@ligo.org>");
 }
 
 

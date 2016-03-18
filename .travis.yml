@@ -3,8 +3,8 @@ language: c
 addons:
   apt:
     packages:
-      - libgstreamer0.10-dev
-      - libgstreamer-plugins-base0.10-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
 compiler:
  - clang
  - gcc
