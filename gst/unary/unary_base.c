@@ -9,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along
@@ -73,7 +73,7 @@ base_init(gpointer klass)
  */
 
 gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
-    GstCaps * outcaps)
+		GstCaps * outcaps)
 {
 	gboolean success = TRUE;
 	static char *formats[] = {"Z128LE", "Z64LE", "F64LE", "F32LE"};
@@ -94,7 +94,7 @@ gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
 		format = gst_structure_get_string(str, "format");
 	} else {
 		GST_ERROR_OBJECT(trans, "No format! Cannot set element caps.\n");
-                return 0;
+		return 0;
 	}
 	/* g_print("incaps format: [%s]\n", format); */
 	for(int i = 0; i < sizeof(formats) / sizeof(*formats); i++) {
@@ -134,7 +134,7 @@ gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
 		gst_structure_get_int(str, "rate", &rate);
 	} else {
 		GST_ERROR_OBJECT(trans, "No rate! Cannot set element caps.\n");
-                return 0;
+		 return 0;
 	}
 	/* g_print("rate: [%d]\n", rate); */
 	element->rate = rate;
