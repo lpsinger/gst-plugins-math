@@ -66,14 +66,40 @@ base_init(gpointer klass)
 	gst_element_class_add_pad_template(gstelement_class, gst_static_pad_template_get(&sink_factory));
 }
 
+GType
+unary_base_get_type(void)
+{
+	static GType type = 0;
+
+	if(!type) {
+		static const GTypeInfo info = {
+			.class_size = sizeof(UnaryBaseClass),
+			.base_init = base_init,
+			.instance_size = sizeof(UnaryBase),
+		};
+		type =
+		g_type_register_static(GST_TYPE_BASE_TRANSFORM, "UnaryBase", &info, 0);
+	}
+
+	return type;
+}
+
+
 /*
- * set_caps
- * This function is called when the caps are re-negotiated. Can return
+ * ============================================================================
+ *
+ *                             Caps Negotiation
+ *
+ * ============================================================================
+ */
+
+/*
+ * set_caps() is called when the caps are re-negotiated. Can return
  * false if we do not like what we see.
  */
 
-gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
-		GstCaps * outcaps)
+gboolean set_caps(GstBaseTransform *trans, GstCaps *incaps,
+		GstCaps *outcaps)
 {
 	gboolean success = TRUE;
 	static char *formats[] = {"Z128LE", "Z64LE", "F64LE", "F32LE"};
@@ -141,22 +167,4 @@ gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
 
 	/* g_print("success: %d\n", success); */
 	return success;
-}
-
-GType
-unary_base_get_type(void)
-{
-	static GType type = 0;
-
-	if(!type) {
-		static const GTypeInfo info = {
-			.class_size = sizeof(UnaryBaseClass),
-			.base_init = base_init,
-			.instance_size = sizeof(UnaryBase),
-		};
-		type =
-		g_type_register_static(GST_TYPE_BASE_TRANSFORM, "UnaryBase", &info, 0);
-	}
-
-	return type;
 }
