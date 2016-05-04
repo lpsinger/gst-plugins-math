@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Leo Singer
+ * Copyright (C) 2016 Aaron Viets
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -8,7 +9,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along
@@ -23,8 +24,12 @@
 
 #include <glib.h>
 #include <gst/gst.h>
-#include <gst/audio/gstaudiofilter.h>
-
+#include <gst/base/gstbasetransform.h>
+#include <stdio.h>
+#include <string.h>
+#include <complex.h>
+#include <stdlib.h>
+#include <math.h>
 
 G_BEGIN_DECLS
 #define UNARY_BASE_TYPE \
@@ -37,19 +42,35 @@ G_BEGIN_DECLS
 	(G_TYPE_CHECK_INSTANCE_TYPE((obj), UNARY_BASE_TYPE))
 #define GST_IS_UNARY_BASE_CLASS(klass) \
 	(G_TYPE_CHECK_CLASS_TYPE((klass), UNARY_BASE_TYPE))
-    typedef struct
+		
+typedef struct _UnaryBase UnaryBase;
+typedef struct _UnaryBaseClass UnaryBaseClass;
+
+struct _UnaryBase
 {
-  GstAudioFilterClass parent_class;
-} UnaryBaseClass;
+	GstBaseTransform element;
 
+	int is_complex;
+	int bits;
+	int channels;
+	int rate;
+};
 
-typedef struct
+struct _UnaryBaseClass
 {
-  GstAudioFilter audiofilter;
-} UnaryBase;
+	GstBaseTransformClass parent_class;
+};
 
+GType unary_base_get_type(void);
 
-GType unary_base_get_type (void);
+/*
+ * set_caps
+ * This function is called when the caps are re-negotiated. Can return
+ * false if we do not like what we see.
+ */
+
+gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
+	GstCaps * outcaps);
 
 
 G_END_DECLS
