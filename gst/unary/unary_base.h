@@ -64,13 +64,12 @@ struct _UnaryBaseClass
 GType unary_base_get_type(void);
 
 /*
- * set_caps
- * This function is called when the caps are re-negotiated. Can return
+ * set_caps() is called when the caps are re-negotiated. Can return
  * false if we do not like what we see.
  */
 
-gboolean set_caps(GstBaseTransform * trans, GstCaps * incaps,
-	GstCaps * outcaps);
+gboolean set_caps(GstBaseTransform *trans, GstCaps *incaps,
+	GstCaps *outcaps);
 
 
 G_END_DECLS
