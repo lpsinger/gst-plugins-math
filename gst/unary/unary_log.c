@@ -49,87 +49,18 @@ struct _UnaryLogClass
 };
 
 
-/* Set the exponent */
-
-enum property
-{
-	PROP_BASE = 1,
-};
-
-
-static void
-set_property(GObject * object, enum property id, const GValue * value,
-	GParamSpec * pspec)
-{
-	UnaryLog *element = UNARY_LOG(object);
-
-	GST_OBJECT_LOCK(element);
-
-	switch(id) {
-		case PROP_BASE:
-			element->base = g_value_get_double(value);
-			break;
-	}
-
-	GST_OBJECT_UNLOCK(element);
-}
-
-
-static void
-get_property(GObject * object, enum property id, GValue * value,
-	GParamSpec * pspec)
-{
-	UnaryLog *element = UNARY_LOG(object);
-
-	GST_OBJECT_LOCK(element);
-
-	switch(id) {
-		case PROP_BASE:
-			g_value_set_double(value, element->base);
-			break;
-	}
-
-	GST_OBJECT_UNLOCK(element);
-}
-
-static GstFlowReturn transform_ip(GstBaseTransform *trans, GstBuffer *buf);
-
-/* Initialize the plugin's class */
-static void
-unary_log_class_init(gpointer klass, gpointer klass_data)
-{
-	GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
-	GstBaseTransformClass *basetransform_class = GST_BASE_TRANSFORM_CLASS(klass);
-
-	gst_element_class_set_details_simple(GST_ELEMENT_CLASS(klass),
-		"Logarithm with base k",
-		"Filter/Audio",
-		"Calculate logarithm, y = log_k x",
-		"Leo Singer <leo.singer@ligo.org>, Aaron Viets <aaron.viets@ligo.org>");
-
-	basetransform_class -> transform_ip = GST_DEBUG_FUNCPTR(transform_ip);
-	basetransform_class -> set_caps = GST_DEBUG_FUNCPTR(set_caps);
-
-	gobject_class->get_property = GST_DEBUG_FUNCPTR(get_property);
-	gobject_class->set_property = GST_DEBUG_FUNCPTR(set_property);
-
-	g_object_class_install_property(gobject_class,
-		PROP_BASE,
-		g_param_spec_double("base",
-			"Base",
-			"Base of logarithm",
-			-G_MAXDOUBLE, G_MAXDOUBLE, 10.,
-			G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_CONSTRUCT));
-}
-
 /*
- * GstBaseTransform vmethod implementations
+ * ============================================================================
  *
- * An in-place transform
- * really does the same thing as the chain function
+ *                 GstBaseTransform vmethod Implementations
+ *
+ * ============================================================================
  */
 
-static GstFlowReturn transform_ip(GstBaseTransform *trans, GstBuffer *buf)
+/* An in-place transform really does the same thing as the chain function */
+
+static GstFlowReturn
+transform_ip(GstBaseTransform *trans, GstBuffer *buf)
 {
 	UnaryLog* element = UNARY_LOG(trans);
 	int bits = element -> unary_base.bits;
@@ -197,6 +128,84 @@ static GstFlowReturn transform_ip(GstBaseTransform *trans, GstBuffer *buf)
 	return GST_FLOW_OK;
 }
 
+
+/*
+ * ============================================================================
+ *
+ *                                 Type Support
+ *
+ * ============================================================================
+ */
+
+/* Set the exponent */
+enum property
+{
+	PROP_BASE = 1,
+};
+
+
+static void
+set_property(GObject * object, enum property id, const GValue * value,
+	GParamSpec * pspec)
+{
+	UnaryLog *element = UNARY_LOG(object);
+
+	GST_OBJECT_LOCK(element);
+
+	switch(id) {
+		case PROP_BASE:
+			element->base = g_value_get_double(value);
+			break;
+	}
+
+	GST_OBJECT_UNLOCK(element);
+}
+
+
+static void
+get_property(GObject * object, enum property id, GValue * value,
+	GParamSpec * pspec)
+{
+	UnaryLog *element = UNARY_LOG(object);
+
+	GST_OBJECT_LOCK(element);
+
+	switch(id) {
+		case PROP_BASE:
+			g_value_set_double(value, element->base);
+			break;
+	}
+
+	GST_OBJECT_UNLOCK(element);
+}
+
+/* Initialize the plugin's class */
+static void
+unary_log_class_init(gpointer klass, gpointer klass_data)
+{
+	GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
+	GstBaseTransformClass *basetransform_class = GST_BASE_TRANSFORM_CLASS(klass);
+
+	gst_element_class_set_details_simple(GST_ELEMENT_CLASS(klass),
+		"Logarithm with base k",
+		"Filter/Audio",
+		"Calculate logarithm, y = log_k x",
+		"Leo Singer <leo.singer@ligo.org>, Aaron Viets <aaron.viets@ligo.org>");
+
+	basetransform_class -> transform_ip = GST_DEBUG_FUNCPTR(transform_ip);
+	basetransform_class -> set_caps = GST_DEBUG_FUNCPTR(set_caps);
+
+	gobject_class->get_property = GST_DEBUG_FUNCPTR(get_property);
+	gobject_class->set_property = GST_DEBUG_FUNCPTR(set_property);
+
+	g_object_class_install_property(gobject_class,
+		PROP_BASE,
+		g_param_spec_double("base",
+			"Base",
+			"Base of logarithm",
+			-G_MAXDOUBLE, G_MAXDOUBLE, 10.,
+			G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_CONSTRUCT));
+}
 
 GType
 unary_log_get_type(void)
