@@ -47,33 +47,19 @@ struct _UnaryLnClass
 	UnaryBaseClass parent_class;
 };
 
-static GstFlowReturn transform_ip(GstBaseTransform *trans, GstBuffer *buf);
-
-/* Initialize the plugin's class */
-static void
-unary_ln_class_init(gpointer klass, gpointer klass_data)
-{
-	GstBaseTransformClass *basetransform_class = GST_BASE_TRANSFORM_CLASS(klass);
-
-	gst_element_class_set_details_simple(GST_ELEMENT_CLASS(klass),
-		"Natural logarithm",
-		"Filter/Audio",
-		"Calculate natural logarithm, y = ln x",
-		"Leo Singer <leo.singer@ligo.org>, Aaron Viets <aaron.viets@ligo.org>");
-
-	basetransform_class -> transform_ip = GST_DEBUG_FUNCPTR(transform_ip);
-	basetransform_class -> set_caps = GST_DEBUG_FUNCPTR(set_caps);
-}
 
 /*
- * GstBaseTransform vmethod implementations
+ * ============================================================================
  *
- * An in-place transform
- * really does the same thing as the chain function
+ *                 GstBaseTransform vmethod Implementations
+ *
+ * ============================================================================
  */
 
+/* An in-place transform really does the same thing as the chain function */
+
 static GstFlowReturn
-transform_ip(GstBaseTransform * trans, GstBuffer * buf)
+transform_ip(GstBaseTransform *trans, GstBuffer *buf)
 {
 	UnaryLn* element = UNARY_LN(trans);
 	int bits = element -> unary_base.bits;
@@ -139,6 +125,30 @@ transform_ip(GstBaseTransform * trans, GstBuffer * buf)
 	return GST_FLOW_OK;
 }
 
+
+/*
+ * ============================================================================
+ *
+ *                                 Type Support
+ *
+ * ============================================================================
+ */
+
+/* Initialize the plugin's class */
+static void
+unary_ln_class_init(gpointer klass, gpointer klass_data)
+{
+	GstBaseTransformClass *basetransform_class = GST_BASE_TRANSFORM_CLASS(klass);
+
+	gst_element_class_set_details_simple(GST_ELEMENT_CLASS(klass),
+		"Natural logarithm",
+		"Filter/Audio",
+		"Calculate natural logarithm, y = ln x",
+		"Leo Singer <leo.singer@ligo.org>, Aaron Viets <aaron.viets@ligo.org>");
+
+	basetransform_class -> transform_ip = GST_DEBUG_FUNCPTR(transform_ip);
+	basetransform_class -> set_caps = GST_DEBUG_FUNCPTR(set_caps);
+}
 
 GType
 unary_ln_get_type(void)
