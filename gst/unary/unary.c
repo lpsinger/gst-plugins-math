@@ -61,7 +61,7 @@ GType unary_pow_get_type (void);
 
 
 static gboolean
-plugin_init (GstPlugin * plugin)
+plugin_init (GstPlugin *plugin)
 {
 	struct
 	{
