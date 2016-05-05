@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Leo Singer
+ * Copyright (C) 2016 Aaron Viets
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +46,7 @@
 /*
  * ============================================================================
  *
- *                             Plugin Entry Point
+ *                              Plugin Entry Point
  *
  * ============================================================================
  */
@@ -60,7 +61,7 @@ GType unary_pow_get_type (void);
 
 
 static gboolean
-plugin_init (GstPlugin * plugin)
+plugin_init (GstPlugin *plugin)
 {
   struct
   {
@@ -75,7 +76,7 @@ plugin_init (GstPlugin * plugin)
     "log", unary_log_get_type ()}, {
     "log10", unary_log10_get_type ()}, {
     "pow", unary_pow_get_type ()}, {
-  NULL, 0},};
+    NULL, 0},};
 
   /*
    * Tell GStreamer about the elements.
@@ -83,7 +84,7 @@ plugin_init (GstPlugin * plugin)
 
   for (element = elements; element->name; element++)
     if (!gst_element_register (plugin, element->name, GST_RANK_NONE,
-            element->type))
+      element->type))
       return FALSE;
 
   /*
@@ -99,6 +100,6 @@ plugin_init (GstPlugin * plugin)
  */
 
 
-GST_PLUGIN_DEFINE (GST_VERSION_MAJOR, GST_VERSION_MINOR, "unary",
-    "Unary arithmetic elements", plugin_init, PACKAGE_VERSION, "GPL",
-    PACKAGE_NAME, "http://www.lsc-group.phys.uwm.edu/daswg")
+GST_PLUGIN_DEFINE (GST_VERSION_MAJOR, GST_VERSION_MINOR, unary,
+  "Unary arithmetic elements", plugin_init, PACKAGE_VERSION, "GPL",
+  PACKAGE_NAME, "http://www.lsc-group.phys.uwm.edu/daswg")
