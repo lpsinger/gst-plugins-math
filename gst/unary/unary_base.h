@@ -33,32 +33,32 @@
 
 G_BEGIN_DECLS
 #define UNARY_BASE_TYPE \
-	(unary_base_get_type())
+  (unary_base_get_type())
 #define UNARY_BASE(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST((obj), UNARY_BASE_TYPE, UnaryBase))
+  (G_TYPE_CHECK_INSTANCE_CAST((obj), UNARY_BASE_TYPE, UnaryBase))
 #define UNARY_BASE_CLASS(klass) \
-	(G_TYPE_CHECK_CLASS_CAST((klass), UNARY_BASE_TYPE, UnaryBaseClass))
+  (G_TYPE_CHECK_CLASS_CAST((klass), UNARY_BASE_TYPE, UnaryBaseClass))
 #define GST_IS_UNARY_BASE(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE((obj), UNARY_BASE_TYPE))
+  (G_TYPE_CHECK_INSTANCE_TYPE((obj), UNARY_BASE_TYPE))
 #define GST_IS_UNARY_BASE_CLASS(klass) \
-	(G_TYPE_CHECK_CLASS_TYPE((klass), UNARY_BASE_TYPE))
-		
+  (G_TYPE_CHECK_CLASS_TYPE((klass), UNARY_BASE_TYPE))
+    
 typedef struct _UnaryBase UnaryBase;
 typedef struct _UnaryBaseClass UnaryBaseClass;
 
 struct _UnaryBase
 {
-	GstBaseTransform element;
+  GstBaseTransform element;
 
-	int is_complex;
-	int bits;
-	int channels;
-	int rate;
+  int is_complex;
+  int bits;
+  int channels;
+  int rate;
 };
 
 struct _UnaryBaseClass
 {
-	GstBaseTransformClass parent_class;
+  GstBaseTransformClass parent_class;
 };
 
 GType unary_base_get_type(void);
@@ -69,7 +69,7 @@ GType unary_base_get_type(void);
  */
 
 gboolean set_caps(GstBaseTransform *trans, GstCaps *incaps,
-	GstCaps *outcaps);
+  GstCaps *outcaps);
 
 
 G_END_DECLS
