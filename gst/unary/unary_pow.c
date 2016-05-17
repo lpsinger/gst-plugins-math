@@ -24,10 +24,10 @@
 
 GType unary_pow_get_type (void);
 
-#define UNARY_LOG_TYPE \
+#define UNARY_POW_TYPE \
 	(unary_pow_get_type())
-#define UNARY_LOG(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST((obj), UNARY_LOG_TYPE, UnaryPow))
+#define UNARY_POW(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST((obj), UNARY_POW_TYPE, UnaryPow))
 
 
 typedef struct
@@ -41,7 +41,7 @@ typedef struct
 static GstFlowReturn
 transform_ip (GstBaseTransform * trans, GstBuffer * buf)
 {
-  UnaryPow *element = UNARY_LOG (trans);
+  UnaryPow *element = UNARY_POW (trans);
   GstAudioFilter *audiofilter = GST_AUDIO_FILTER (trans);
   GstAudioFormat format = audiofilter->info.finfo->format;
 
@@ -88,7 +88,7 @@ static void
 set_property (GObject * object, enum property id, const GValue * value,
     GParamSpec * pspec)
 {
-  UnaryPow *element = UNARY_LOG (object);
+  UnaryPow *element = UNARY_POW (object);
 
   GST_OBJECT_LOCK (element);
 
@@ -106,7 +106,7 @@ static void
 get_property (GObject * object, enum property id, GValue * value,
     GParamSpec * pspec)
 {
-  UnaryPow *element = UNARY_LOG (object);
+  UnaryPow *element = UNARY_POW (object);
 
   GST_OBJECT_LOCK (element);
 
