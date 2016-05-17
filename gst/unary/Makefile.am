@@ -4,12 +4,14 @@ plugin_LTLIBRARIES = libgstunary.la
 libgstunary_la_SOURCES = \
   unary.c \
   unary_base.h unary_base.c \
+  unary_complex_base.h unary_complex_base.c \
   unary_abs.c \
   unary_exp.c \
   unary_ln.c \
   unary_log.c \
   unary_log10.c \
-  unary_pow.c
+  unary_pow.c \
+  unary_complex_pow.c
 
 # compiler and linker flags used to compile this plugin, set in configure.ac
 libgstunary_la_CFLAGS = $(AM_CFLAGS) $(GST_CFLAGS)
