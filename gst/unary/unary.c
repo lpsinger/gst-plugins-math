@@ -40,6 +40,7 @@
 
 
 #include <unary_base.h>
+#include <unary_complex_base.h>
 
 
 /*
@@ -57,6 +58,7 @@ GType unary_ln_get_type (void);
 GType unary_log_get_type (void);
 GType unary_log10_get_type (void);
 GType unary_pow_get_type (void);
+GType unary_complex_pow_get_type (void);
 
 
 static gboolean
@@ -69,12 +71,14 @@ plugin_init (GstPlugin * plugin)
   } *element, elements[] = {
     {
     "unary_base", UNARY_BASE_TYPE}, {
+    "unary_complex_base", UNARY_COMPLEX_BASE_TYPE}, {
     "abs", unary_abs_get_type ()}, {
     "exp", unary_exp_get_type ()}, {
     "ln", unary_ln_get_type ()}, {
     "log", unary_log_get_type ()}, {
     "log10", unary_log10_get_type ()}, {
     "pow", unary_pow_get_type ()}, {
+    "complex_pow", unary_complex_pow_get_type ()}, {
   NULL, 0},};
 
   /*
