@@ -10,3 +10,8 @@
 2016-03-18  Aaron Viets <aaron.viets@ligo.org>
 
 	* Ported to GStreamer 1.0.
+
+2016-06-23  Leo Singer <leo.singer@ligo.org>
+
+	* Add complex_pow element.
+	* Released version 1.0.0.
