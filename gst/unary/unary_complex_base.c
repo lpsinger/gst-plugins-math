@@ -41,9 +41,11 @@ base_init (gpointer class)
 
   gst_audio_filter_class_add_pad_templates (GST_AUDIO_FILTER_CLASS (class),
       gst_caps_from_string ("audio/x-raw, "
+          "format = (string) {"GST_AUDIO_NE(F32)", "GST_AUDIO_NE(F64)"}, "
           "rate = (int) [1, MAX], "
-          "endianness = (int) BYTE_ORDER, "
-          "width = (int) {32, 64}, " "channels = (int) [2, MAX]")
+          "layout = (string) interleaved, "
+          "channel-mask = (bitmask) 0, "
+          "channels = (int) [2, MAX]")
       );
 }
 
