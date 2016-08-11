@@ -30,10 +30,9 @@ transform_ip (GstBaseTransform * trans, GstBuffer * buf)
   GstAudioFormat format = audiofilter->info.finfo->format;
 
   GstMapInfo info;
-  gst_buffer_map (buf, &info, GST_MAP_READ);
+  gst_buffer_map (buf, &info, GST_MAP_READWRITE);
   gpointer data = info.data;
   gpointer data_end = data + info.size;
-  gst_buffer_unmap (buf, &info);
 
   if (format >= GST_AUDIO_FORMAT_F64) {
     double *ptr, *end = data_end;
@@ -46,6 +45,8 @@ transform_ip (GstBaseTransform * trans, GstBuffer * buf)
   } else {
     g_assert_not_reached ();
   }
+
+  gst_buffer_unmap (buf, &info);
 
   return GST_FLOW_OK;
 }
