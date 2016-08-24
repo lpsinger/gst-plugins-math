@@ -15,3 +15,7 @@
 
 	* Add complex_pow element.
 	* Released version 1.0.0.
+
+2016-08-24  Leo Singer <leo.singer@ligo.org>
+  * Fixed problem with reading/writing buffers in transform_ip() (Aaron Viets)
+  * Released version 1.0.1.
